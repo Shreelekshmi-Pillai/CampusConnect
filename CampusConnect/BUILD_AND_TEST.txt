@@ -1,0 +1,20 @@
+BUILD / TEST CHECKLIST
+
+Validation performed while preparing this ZIP:
+- All Java source files, including module-info.java, compiled successfully with javac (Java 21-compatible source).
+- The demo PBKDF2 password hash format was verified against PasswordUtil using password CampusDemo123!.
+- Static SQL/schema audit found and corrected the registration users-field mismatch and the two users.created_at references.
+
+You still need to test against your own MySQL server because this environment cannot access your local database.
+
+Run in Eclipse:
+1. Ensure MySQL is running and import CampusConnect/mysql.sql into a fresh/test database. Warning: the dump drops and recreates tables.
+2. Place Connector/J at lib/mysql-connector-j-9.7.0.jar.
+3. In Run Configurations > Environment, set:
+   CAMPUS_CONNECT_DB_USER = your MySQL username
+   CAMPUS_CONNECT_DB_PASSWORD = your MySQL password
+   Optional: CAMPUS_CONNECT_DB_URL = jdbc:mysql://localhost:3306/campus_connect?serverTimezone=Asia/Kolkata&useSSL=false&allowPublicKeyRetrieval=true
+4. Clean/build the project, then run main.Main.
+5. Test a new Student registration, then login; test Alumni registration (it should be pending); login as admin using admin@example.com / CampusDemo123!; verify the pending alumni.
+
+Do not use the demo password or sample data in a real deployment.
